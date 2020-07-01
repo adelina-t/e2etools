@@ -8,18 +8,28 @@ metadata:
 spec:
   containers:
   - args:
-    - sleep
-    - "100000"
+    - /tmp/scriptroot/build.sh
     image: golang:1.14
     name: e2e-builder
     resources: {}
     volumeMounts:
     - name: k8s
-      mountPath: /go/src/k8s.io      
+      mountPath: /go/src/k8s.io
+      readOnly: false
+    - name: scriptroot
+      mountPath: /tmp/scriptroot      
   volumes:
   - name: k8s
     hostPath:
        path: ${K8S_ROOT}       
+  - name: scriptroot
+    hostPath:
+       path: ${PWD}
   dnsPolicy: ClusterFirst
   restartPolicy: Always
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+  nodeSelector:
+    beta.kubernetes.io/os: linux
 status: {}
