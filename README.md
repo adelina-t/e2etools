@@ -84,7 +84,8 @@ Prereqs:
 
 Create build pod:
 
-``` export K8S_PATH=path_to_host_volume
+``` 
+   export K8S_PATH=path_to_host_volume
     cat e2e-builder.template.yaml | envsubst | kubectl create -f -
 ```
 
