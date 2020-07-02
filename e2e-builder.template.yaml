@@ -7,8 +7,8 @@ metadata:
   name: e2e-builder
 spec:
   containers:
-  - args:
-    - /tmp/scriptroot/build.sh
+  - command: ["/bin/bash"]
+    args: ["/tmp/scriptroot/build.sh"]
     image: golang:1.14
     name: e2e-builder
     resources: {}
@@ -26,7 +26,7 @@ spec:
     hostPath:
        path: ${PWD}
   dnsPolicy: ClusterFirst
-  restartPolicy: Always
+  restartPolicy: Never 
   tolerations:
   - effect: NoSchedule
     key: node-role.kubernetes.io/master
